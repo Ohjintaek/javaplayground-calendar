@@ -29,7 +29,12 @@ public class Calendar {
         Calendar cal = new Calendar();
         System.out.println("달을 입력하세요.");
         int number = scanner.nextInt();
-
-        System.out.printf("%d월은 %d일까지 있습니다.", number, cal.getMaxDaysOfMonth(number));
+        if (number < 1) {
+            System.out.println("올바른 숫자가 아닙니다.");
+        } else if (number > 12) {
+            System.out.println("올바른 숫자가 아닙니다.");
+        } else {
+            System.out.printf("%d월은 %d일까지 있습니다.", number, cal.getMaxDaysOfMonth(number));
+        }
     }
 }
