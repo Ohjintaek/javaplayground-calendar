@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Calendar {
-    private static final int[] maxDays = {31,28,31,30,31,30,31,31,30,31,30,31};
+    private static final int[] MAX_DAYS = {31,28,31,30,31,30,31,31,30,31,30,31};
 
     public int getMaxDaysOfMonth(int month) {
-        return maxDays[month - 1];
+        return MAX_DAYS[month - 1];
     }
     public static void main(String[] args) {
         String tmp = "일 월 화 수 목 금 토\n" +
