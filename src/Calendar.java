@@ -1,5 +1,8 @@
 public class Calendar {
     private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final String[] WEEKDAYS = {"SU", "MO", "TU", "WE", "TH", "FR", "SA"};
+    private static final int GREGORY_ORIGIN = 1583;
+    private static final int GREGORY_ORIGIN_WEEKDAY = 6; // SATURDAY;
 
     public static int getMaxDaysOfMonth(int year, int month) {
         if (isLeapYear(year) && month == 2) {
@@ -40,9 +43,9 @@ public class Calendar {
         return false;
     }
 
-    public static void printCalendar(int year, int month, String weekday) {
+    public static void printCalendar(int year, int month) {
         int daysOfMonth = getMaxDaysOfMonth(year, month);
-        int dayIndex = getIndexOfWeekday(weekday);
+        int dayIndex = getIndexOfWeekday(WEEKDAYS[getGregoryWeekday(year, month)]);
 
         System.out.printf("    << %4d%3d >>\n", year, month);
         System.out.println(" SU MO TU WE TH FR SA");
@@ -68,5 +71,23 @@ public class Calendar {
         } else {
             System.out.printf("%d월은 %d일까지 있습니다.\n", month, getMaxDaysOfMonth(year, month));
         }
+    }
+
+    public static int getGregoryWeekday(int year, int month) {
+        int weekday = GREGORY_ORIGIN_WEEKDAY;
+        for (int i = GREGORY_ORIGIN; i < year; i++) {
+            if (isLeapYear(i)) {
+                weekday = (weekday + 2) % 7;
+            }
+            else {
+                 weekday = (weekday + 1) % 7;
+            }
+        }
+
+        for (int i = 1; i < month; i++) {
+            weekday = (weekday + getMaxDaysOfMonth(year, i)) % 7;
+        }
+
+        return weekday;
     }
 }
