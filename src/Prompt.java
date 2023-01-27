@@ -24,10 +24,4 @@ public class Prompt {
         System.out.println("Have a nice day!");
         scanner.close();
     }
-
-    public static void main(String[] args) {
-        // 셀 실행
-        Prompt p = new Prompt();
-        p.runPrompt();
-    }
 }
