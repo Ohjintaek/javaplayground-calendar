@@ -1,77 +1,72 @@
-import java.util.Scanner;
-
 public class Calendar {
     private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    public static int getMaxDaysOfMonth(int month) {
+    public static int getMaxDaysOfMonth(int year, int month) {
+        if (isLeapYear(year) && month == 2) {
+            return 29;
+        }
         return MAX_DAYS[month - 1];
     }
 
-    private static void printCalendar(int month) {
-        String calendar28 = " 일 월 화 수 목 금 토\n" +
-                "--------------------\n" +
-                " 1  2  3  4  5  6  7\n" +
-                " 8  9 10 11 12 13 14\n" +
-                "15 16 17 18 19 20 21\n" +
-                "22 23 24 25 26 27 28";
+    public static int getIndexOfWeekday(String weekday) {
+        if (weekday.equals("SU")) {
+            return 0;
+        }
+        if (weekday.equals("MO")) {
+            return 1;
+        }
+        if (weekday.equals("TU")) {
+            return 2;
+        }
+        if (weekday.equals("WE")) {
+            return 3;
+        }
+        if (weekday.equals("TH")) {
+            return 4;
+        }
+        if (weekday.equals("FR")) {
+            return 5;
+        }
+        if (weekday.equals("SA")) {
+            return 6;
+        }
+        return 0;
+    }
 
-        String calendar30 = " 일 월 화 수 목 금 토\n" +
-                "--------------------\n" +
-                " 1  2  3  4  5  6  7\n" +
-                " 8  9 10 11 12 13 14\n" +
-                "15 16 17 18 19 20 21\n" +
-                "22 23 24 25 26 27 28\n" +
-                "29 30";
+    public static boolean isLeapYear(int year) {
+        if ( year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+            return true;
+        }
+        return false;
+    }
 
-        String calendar31 = " 일 월 화 수 목 금 토\n" +
-                "--------------------\n" +
-                " 1  2  3  4  5  6  7\n" +
-                " 8  9 10 11 12 13 14\n" +
-                "15 16 17 18 19 20 21\n" +
-                "22 23 24 25 26 27 28\n" +
-                "29 30 31";
+    public static void printCalendar(int year, int month, String weekday) {
+        int daysOfMonth = getMaxDaysOfMonth(year, month);
+        int dayIndex = getIndexOfWeekday(weekday);
 
-        String targetCalendar;
-        int daysOfMonth = getMaxDaysOfMonth(month);
-        if (daysOfMonth == 28) {
-            targetCalendar = calendar28;
-        } else if (daysOfMonth == 30) {
-            targetCalendar = calendar30;
-        } else {
-            targetCalendar = calendar31;
+        System.out.printf("    << %4d%3d >>\n", year, month);
+        System.out.println(" SU MO TU WE TH FR SA");
+        System.out.println("---------------------");
+        for(int i = 1; i <= dayIndex; i++) {
+            System.out.print("   ");
+        }
+        for (int i = 1; i <= daysOfMonth; i++) {
+            System.out.printf("%3d", i);
+            if ((i + dayIndex) % 7 == 0) {
+                System.out.println();
+            }
         }
 
-        System.out.println(targetCalendar);
         System.out.println();
     }
 
-    private static void printMaxDayOfMonth(int month) {
-        Calendar cal = new Calendar();
-
+    private static void printMaxDayOfMonth(int year, int month) {
         if (month < 1) {
             System.out.println("올바른 숫자가 아닙니다.");
         } else if (month > 12) {
             System.out.println("올바른 숫자가 아닙니다.");
         } else {
-            System.out.printf("%d월은 %d일까지 있습니다.\n", month, cal.getMaxDaysOfMonth(month));
+            System.out.printf("%d월은 %d일까지 있습니다.\n", month, getMaxDaysOfMonth(year, month));
         }
-    }
-
-    public static void main(String[] args) {
-        // 월을 입력하면 그 달이 몇일로 구성되어 있는지 출력하는 프로그램 작성하기
-        Scanner scanner = new Scanner(System.in);
-        int month;
-
-        while (true) {
-            System.out.print("월을 입력하세요.\n> ");
-            month = scanner.nextInt();
-            if (month == -1) {
-                break;
-            }
-            printCalendar(month);
-        }
-
-        System.out.println("Have a nice day!");
-        scanner.close();
     }
 }
