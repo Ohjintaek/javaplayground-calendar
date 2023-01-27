@@ -19,7 +19,7 @@ public class Calendar {
         System.out.println();
     }
 
-    private static void printMonth(int month) {
+    private static void printMaxDayOfMonth(int month) {
         Calendar cal = new Calendar();
 
         if (month < 1) {
@@ -27,7 +27,7 @@ public class Calendar {
         } else if (month > 12) {
             System.out.println("올바른 숫자가 아닙니다.");
         } else {
-            System.out.printf("%d월은 %d일까지 있습니다.", month, cal.getMaxDaysOfMonth(month));
+            System.out.printf("%d월은 %d일까지 있습니다.\n", month, cal.getMaxDaysOfMonth(month));
         }
     }
 
@@ -47,7 +47,7 @@ public class Calendar {
 
         int i = 0;
         while(i < trial) {
-            System.out.printf("%d월은 %d일까지 있습니다.\n", requiredMonth[i], MAX_DAYS[requiredMonth[i]-1]);
+            printMaxDayOfMonth(requiredMonth[i]);
             i++;
         }
 
