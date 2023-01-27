@@ -2,7 +2,7 @@ public class Calendar {
     private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static final String[] WEEKDAYS = {"SU", "MO", "TU", "WE", "TH", "FR", "SA"};
     private static final int GREGORY_ORIGIN = 1583;
-    private static final int GREGORY_ORIGIN_WEEKDAY = 6; // SATURDAY;
+    private static final int GREGORY_ORIGIN_WEEKDAY = 6; // 1583/1/1 : SATURDAY;
 
     public static int getMaxDaysOfMonth(int year, int month) {
         if (isLeapYear(year) && month == 2) {

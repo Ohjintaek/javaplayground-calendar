@@ -5,7 +5,6 @@ public class Prompt {
         Scanner scanner = new Scanner(System.in);
         int month;
         int year;
-        String weekday;
 
         while (true) {
             System.out.println("년도를 입력하세요. (종료: -1)");
