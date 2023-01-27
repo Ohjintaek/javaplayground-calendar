@@ -34,23 +34,18 @@ public class Calendar {
     public static void main(String[] args) {
         // 월을 입력하면 그 달이 몇일로 구성되어 있는지 출력하는 프로그램 작성하기
         Scanner scanner = new Scanner(System.in);
-        System.out.println("반복횟수를 입력하세요.");
-        int trial = scanner.nextInt();
-        System.out.println();
-        int[] requiredMonth = new int[trial];
+        int month = 0;
 
-        System.out.println("월을 입력하세요.");
-        for (int i = 0; i < trial; i++) {
-            requiredMonth[i] = scanner.nextInt();
-        }
-        System.out.println();
-
-        int i = 0;
-        while(i < trial) {
-            printMaxDayOfMonth(requiredMonth[i]);
-            i++;
+        while(true) {
+            System.out.print("월을 입력하세요.\n> ");
+            month = scanner.nextInt();
+            if (month == -1) {
+                break;
+            }
+            printMaxDayOfMonth(month);
         }
 
+        System.out.println("Have a nice day!");
         scanner.close();
     }
 }
