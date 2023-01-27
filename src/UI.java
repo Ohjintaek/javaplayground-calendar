@@ -1,5 +1,4 @@
 import java.util.*;
-import java.time.LocalDate;
 
 public class UI {
     private final static String MENU = "+----------------------+\n" +
@@ -17,12 +16,13 @@ public class UI {
     public static void runUI(UI ui) {
         System.out.println(MENU);
         Scanner scanner = new Scanner(System.in);
+        Prompt p = new Prompt();
         String userInput;
 
         while (true) {
             System.out.println(ORDER);
             System.out.print(PROMPT);
-            userInput = scanner.nextLine();
+            userInput = scanner.next();
 
             if (userInput.equals("1")) {
                 register(scanner, ui);
@@ -36,18 +36,17 @@ public class UI {
                         System.out.printf("%d. %s\n", i, plan);
                         i++;
                     }
+                } else {
+                    System.out.println("등록된 일정이 없습니다.");
                 }
             }
 
             if (userInput.equals("3")) {
-                LocalDate now = LocalDate.now();
-                int year = now.getYear();
-                int month = now.getMonthValue();
-                Calendar.printCalendar(year, month);
+                p.runPrompt(scanner);
             }
 
             if (userInput.equals("h")) {
-                System.out.println("도움말입니다.");
+                System.out.println(MENU);
             }
 
             if (userInput.equals("q")) {
@@ -56,12 +55,13 @@ public class UI {
         }
 
         System.out.println("Bye");
+        scanner.close();
     }
 
     private static void register(Scanner scanner, UI ui) {
-        System.out.println("[일정 등록] 날짜를 입력하세요.");
+        System.out.println("[일정 등록] 날짜를 입력하세요 (yyyy-MM-dd).");
         System.out.print(PROMPT);
-        String date = scanner.nextLine();
+        String date = scanner.next();
 
         System.out.println("일정을 입력하세요.");
         System.out.print(PROMPT);
@@ -69,17 +69,16 @@ public class UI {
 
         if (ui.userPlan.containsKey(date)) {
             ui.userPlan.get(date).add(plan);
-        }
-        else {
+        } else {
             ui.userPlan.put(date, new ArrayList<>(Arrays.asList(plan)));
         }
         System.out.println("일정이 등록되었습니다.");
     }
 
     private static List<String> search(Scanner scanner, UI ui) {
-        System.out.println("[일정 검색] 날짜를 입력하세요.");
+        System.out.println("[일정 검색] 날짜를 입력하세요. (yyyy-MM-dd)");
         System.out.print(PROMPT);
-        String date = scanner.nextLine();
+        String date = scanner.next();
 
         if (ui.userPlan.containsKey(date)) {
             return ui.userPlan.get(date);
