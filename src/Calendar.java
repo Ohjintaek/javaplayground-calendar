@@ -1,21 +1,47 @@
 import java.util.Scanner;
 
 public class Calendar {
-    private static final int[] MAX_DAYS = {31,28,31,30,31,30,31,31,30,31,30,31};
+    private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    public int getMaxDaysOfMonth(int month) {
+    public static int getMaxDaysOfMonth(int month) {
         return MAX_DAYS[month - 1];
     }
 
-    public void printTempCalendar() {
-        String tmp = "일 월 화 수 목 금 토\n" +
+    private static void printCalendar(int month) {
+        String calendar28 = " 일 월 화 수 목 금 토\n" +
                 "--------------------\n" +
                 " 1  2  3  4  5  6  7\n" +
                 " 8  9 10 11 12 13 14\n" +
                 "15 16 17 18 19 20 21\n" +
                 "22 23 24 25 26 27 28";
 
-        System.out.println(tmp);
+        String calendar30 = " 일 월 화 수 목 금 토\n" +
+                "--------------------\n" +
+                " 1  2  3  4  5  6  7\n" +
+                " 8  9 10 11 12 13 14\n" +
+                "15 16 17 18 19 20 21\n" +
+                "22 23 24 25 26 27 28\n" +
+                "29 30";
+
+        String calendar31 = " 일 월 화 수 목 금 토\n" +
+                "--------------------\n" +
+                " 1  2  3  4  5  6  7\n" +
+                " 8  9 10 11 12 13 14\n" +
+                "15 16 17 18 19 20 21\n" +
+                "22 23 24 25 26 27 28\n" +
+                "29 30 31";
+
+        String targetCalendar;
+        int daysOfMonth = getMaxDaysOfMonth(month);
+        if (daysOfMonth == 28) {
+            targetCalendar = calendar28;
+        } else if (daysOfMonth == 30) {
+            targetCalendar = calendar30;
+        } else {
+            targetCalendar = calendar31;
+        }
+
+        System.out.println(targetCalendar);
         System.out.println();
     }
 
@@ -34,15 +60,15 @@ public class Calendar {
     public static void main(String[] args) {
         // 월을 입력하면 그 달이 몇일로 구성되어 있는지 출력하는 프로그램 작성하기
         Scanner scanner = new Scanner(System.in);
-        int month = 0;
+        int month;
 
-        while(true) {
+        while (true) {
             System.out.print("월을 입력하세요.\n> ");
             month = scanner.nextInt();
             if (month == -1) {
                 break;
             }
-            printMaxDayOfMonth(month);
+            printCalendar(month);
         }
 
         System.out.println("Have a nice day!");
