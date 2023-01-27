@@ -19,38 +19,40 @@ public class UI {
         Prompt p = new Prompt();
         String userInput;
 
+        loop:
         while (true) {
             System.out.println(ORDER);
             System.out.print(PROMPT);
             userInput = scanner.next();
 
-            if (userInput.equals("1")) {
-                register(scanner, ui);
-            }
+            switch (userInput) {
+                case "1":
+                    register(scanner, ui);
+                    break;
 
-            if (userInput.equals("2")) {
-                List<String> plans = search(scanner, ui);
-                if (plans != null) {
-                    int i = 1;
-                    for (String plan : plans) {
-                        System.out.printf("%d. %s\n", i, plan);
-                        i++;
+                case "2":
+                    List<String> plans = search(scanner, ui);
+                    if (plans != null) {
+                        int i = 1;
+                        for (String plan : plans) {
+                            System.out.printf("%d. %s\n", i, plan);
+                            i++;
+                        }
+                    } else {
+                        System.out.println("등록된 일정이 없습니다.");
                     }
-                } else {
-                    System.out.println("등록된 일정이 없습니다.");
-                }
-            }
+                    break;
 
-            if (userInput.equals("3")) {
-                p.runPrompt(scanner);
-            }
+                case "3":
+                    p.runPrompt(scanner);
+                    break;
 
-            if (userInput.equals("h")) {
-                System.out.println(MENU);
-            }
+                case "h":
+                    System.out.println(MENU);
+                    break;
 
-            if (userInput.equals("q")) {
-                break;
+                case "q":
+                    break loop;
             }
         }
 
